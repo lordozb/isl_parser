@@ -18,6 +18,17 @@
 
     				<label class="alert alert-info">Enter your sentence</label>
     				<textarea name="text_input" id="text_input" class="form-control" rows="3" required="required" autofocus></textarea><br>
+					
+					<div class="btn-group" data-toggle="buttons">
+				  	  <label class="btn btn-primary active">
+					  	<input type="radio" checked autocomplete="off" id = "eng"> English
+					  </label>
+
+					  <label class="btn btn-primary">
+					    <input type="radio" autocomplete="off" id = "hindi"> Hindi  
+					  </label>
+					</div>
+					<hr>
 	     			<button type="button" class="btn btn-success" id = "button">Parse</button>
 	   			
     		</div>
@@ -41,6 +52,9 @@
     		</div>
 
     	</div>
+
+
+
     </div>  
 
 
@@ -49,19 +63,28 @@
     <script>
     	
     	$("document").ready(function(){
+
     		$("#button").click(function(){
     			var value = $('textarea#text_input').val();
     			var array = {};
     			array["key"] = value;
+
+    			if($("#hindi").is(":checked")){
+    				array["bool"] = "hindi";
+    			}
+    			else{
+    				array["bool"] = "english";
+    			}
     			$.post("parse.php",array,function(data, status){
     				s = JSON.parse(data);
-    				console.log(s);
-					$("#tbody").empty();
+    				console.log(data);
+    				
+   					$("#tbody").empty();
 					 $.each(s, function(key, val){
 					 	var tr = $('<tr></tr>');
 					 	$('<td>'+val[0]+'</td> '+' <td>'+val[1]+'</td>').appendTo(tr);
 					 	tr.appendTo('#tbody');
-					 });  							
+					 });  						
     				
        			});
     		});
