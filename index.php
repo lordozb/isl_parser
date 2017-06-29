@@ -77,7 +77,7 @@
     			}
     			$.post("parse.php",array,function(data, status){
     				s = JSON.parse(data);
-    				console.log(data);
+    				console.log(s);
     				
    					$("#tbody").empty();
 					 $.each(s, function(key, val){
